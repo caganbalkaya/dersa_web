@@ -29,7 +29,13 @@ import StudentDashboard from './pages/StudentDashboard';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import './index.css';
 
-const socket = io(API_URL);
+const socket = io(API_URL, {
+  transports: ['websocket', 'polling'],
+  upgrade: true,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000,
+});
+
 
 function AppRoutes({ theme, toggleTheme }) {
   const location = useLocation();

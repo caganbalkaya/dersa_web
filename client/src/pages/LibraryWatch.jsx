@@ -113,6 +113,7 @@ export default function LibraryWatch({ theme, toggleTheme }) {
         // Active Question Trigger
         if(item.questions && item.questions.length > 0) {
            const nextQuestion = item.questions.find(q => currentSec >= q.timestampSec && !answeredQuestions[q.id || q.timestampSec]);
+
            if (nextQuestion && !activeQuestion) {
               playerRef.current.pauseVideo();
               setActiveQuestion(nextQuestion);
@@ -156,7 +157,7 @@ export default function LibraryWatch({ theme, toggleTheme }) {
     setSelectedAns(idx);
     
     // Check if correct
-    if(idx === activeQuestion.ans) {
+    if(idx === activeQuestion.correctIndex) {
       rewardPoints(50); // +50 points for correct answer
     }
     
@@ -251,15 +252,15 @@ export default function LibraryWatch({ theme, toggleTheme }) {
                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(10px)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff', zIndex: 20, animation: 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)', padding: '2rem' }}>
                     <div className="card" style={{ background: 'var(--bg)', color: 'var(--fg)', padding: '3rem', width: '100%', maxWidth: '700px', textAlign: 'center', boxShadow: '0 20px 50px rgba(0,0,0,0.3)', border: '1px solid var(--border)' }}>
                        <h3 style={{ fontSize: '1.25rem', color: 'var(--fg-subtle)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>İnteraktif Soru</h3>
-                       <p style={{ fontSize: '1.8rem', fontWeight: 600, fontFamily: 'DM Serif Display, serif', marginBottom: '3rem' }}>{activeQuestion.q}</p>
+                       <p style={{ fontSize: '1.8rem', fontWeight: 600, fontFamily: 'DM Serif Display, serif', marginBottom: '3rem' }}>{activeQuestion.prompt}</p>
                        
                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
-                         {activeQuestion.opts.map((opt, i) => {
+                         {(typeof activeQuestion.options === 'string' ? JSON.parse(activeQuestion.options) : activeQuestion.options).map((opt, i) => {
                             let btnClass = "btn btn-ghost btn-block";
                             let btnStyle = { padding: '1.25rem', fontSize: '1.2rem', justifyContent: 'flex-start', border: '1px solid var(--border)', background: 'var(--bg-surface)' };
                             
                             if (selectedAns !== null) {
-                               if (i === activeQuestion.ans) {
+                               if (i === activeQuestion.correctIndex) {
                                   btnStyle.background = 'rgba(16, 185, 129, 0.15)';
                                   btnStyle.borderColor = '#10b981';
                                   btnStyle.color = '#10b981';
@@ -281,8 +282,8 @@ export default function LibraryWatch({ theme, toggleTheme }) {
                        </div>
                        
                        {selectedAns !== null && (
-                         <div style={{ marginTop: '2rem', fontSize: '1.1rem', fontWeight: 600, color: selectedAns === activeQuestion.ans ? '#10b981' : '#ef4444', animation: 'slideUp 0.3s ease' }}>
-                           {selectedAns === activeQuestion.ans ? '🎉 Doğru! Video devam ediyor...' : '❌ Yanlış. Video devam ediyor...'}
+                         <div style={{ marginTop: '2rem', fontSize: '1.1rem', fontWeight: 600, color: selectedAns === activeQuestion.correctIndex ? '#10b981' : '#ef4444', animation: 'slideUp 0.3s ease' }}>
+                           {selectedAns === activeQuestion.correctIndex ? '🎉 Doğru! Video devam ediyor...' : '❌ Yanlış. Video devam ediyor...'}
                          </div>
                        )}
                     </div>
