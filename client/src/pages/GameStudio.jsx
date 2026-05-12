@@ -224,7 +224,7 @@ export default function GameStudio({ socket }) {
              </div>
            ) : (activeView === 'LIVE_PRE_LOBBY' || activeView === 'LIVE_AUTO_RUNNING') ? (
              <div>
-                <div style={{ background: 'var(--accent)', color: 'white', padding: '1rem', borderRadius: '8px', textAlign: 'center', marginBottom: '1rem' }}>
+                <div style={{ background: 'var(--fg)', color: 'var(--bg)', padding: '1rem', borderRadius: '8px', textAlign: 'center', marginBottom: '1rem' }}>
                    <div style={{ fontSize: '0.8rem', fontWeight: 700, opacity: 0.8 }}>YAYINDAKI SINIF PIN KODU</div>
                    <div style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '0.2em' }}>{livePin}</div>
                 </div>

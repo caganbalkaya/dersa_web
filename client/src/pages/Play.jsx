@@ -387,7 +387,7 @@ export default function Play({ socket }) {
      // === GAME QUESTION RENDERING ===
      const actualData = gameData?.gameData || gameData;
      const limitTime = gameData?.timeLimit || 30;
-     const payload = JSON.parse(actualData.payload || '{}');
+     const payload = typeof actualData.payload === 'string' ? JSON.parse(actualData.payload || '{}') : (actualData.payload || {});
      
      if (actualData.type === 'HANGMAN') {
         return (
