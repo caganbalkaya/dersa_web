@@ -766,6 +766,91 @@ io.on('connection', (socket) => {
         }
     });
 
+    // Auto Game Engine
+    socket.on('start_auto_game', async (data) => {
+        const { pin, gameId } = data;
+        const session = sessions[pin];
+        if (session && session.teacherId === socket.id) {
+            try {
+                const game = await prisma.gameTemplate.findUnique({
+                    where: { id: gameId },
+                    include: { questions: { orderBy: { orderIndex: 'asc' } } }
+                });
+
+                if (!game || !game.questions || game.questions.length === 0) return;
+
+                session.autoGame = {
+                    questions: game.questions,
+                    currentIndex: 0,
+                    scores: {}, // studentId -> points
+                    currentAnswers: {}, // studentId -> payload
+                    timeoutId: null
+                };
+                
+                // Initialize scores
+                session.students.forEach(s => { session.autoGame.scores[s.id] = 0; });
+
+                const runNextQuestion = () => {
+                    const idx = session.autoGame.currentIndex;
+                    if (idx >= session.autoGame.questions.length) {
+                        // Game Over
+                        io.to(pin).emit('game_over', { scores: session.autoGame.scores });
+                        return;
+                    }
+
+                    const q = session.autoGame.questions[idx];
+                    session.autoGame.currentAnswers = {};
+
+                    // Sync question to all
+                    io.to(pin).emit('sync_auto_game', {
+                        queueInfo: `${idx + 1} / ${session.autoGame.questions.length}`,
+                        gameData: { type: q.type, prompt: q.prompt, payload: typeof q.payload === 'string' ? JSON.parse(q.payload) : q.payload },
+                        timeLimit: q.timeLimit
+                    });
+
+                    // Wait for timeLimit
+                    session.autoGame.timeoutId = setTimeout(() => {
+                        // Send results
+                        io.to(pin).emit('sync_game_results', {
+                            answers: session.autoGame.currentAnswers,
+                            currentScores: session.autoGame.scores
+                        });
+
+                        // Wait 5 seconds to show results, then next question
+                        setTimeout(() => {
+                            session.autoGame.currentIndex++;
+                            runNextQuestion();
+                        }, 5000);
+                    }, q.timeLimit * 1000);
+                };
+
+                runNextQuestion();
+            } catch (err) {
+                console.error("Auto game error", err);
+            }
+        }
+    });
+
+    socket.on('submit_auto_game_action', (data) => {
+        const { pin, isCorrect, actionPayload } = data;
+        const session = sessions[pin];
+        if (session && session.autoGame) {
+            let pts = 0;
+            if (isCorrect) {
+                pts = 10;
+                session.autoGame.scores[socket.id] = (session.autoGame.scores[socket.id] || 0) + 10;
+            }
+            session.autoGame.currentAnswers[socket.id] = { points: pts, action: actionPayload };
+
+            // Send to teacher instantly so they can see live actions
+            io.to(session.teacherId).emit('live_action_received', {
+                studentId: socket.id,
+                points: pts,
+                actionPayload
+            });
+        }
+    });
+
     socket.on('disconnect', () => {
         // Basic cleanup: find if it was a student and remove from attendance
         for (const pin in sessions) {
