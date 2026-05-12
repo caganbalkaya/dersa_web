@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PublicNavbar from '../components/PublicNavbar';
 import { Check, X } from 'lucide-react';
@@ -127,7 +127,7 @@ export default function Pricing({ theme, toggleTheme }) {
       <footer style={{ borderTop: '4px solid var(--fg)' }} {...interactiveProps}>
         <div style={{ padding: '2.5rem 2rem' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-            <img src={theme === 'dark' ? '/src/assets/whitepn.png' : '/src/assets/blackpng.png'} alt="Dersa logo" style={{ height: '24px', opacity: 0.5 }} />
+            <img src={theme === 'dark' ? '/whitepn.png' : '/blackpng.png'} alt="Dersa logo" style={{ height: '24px', opacity: 0.5 }} />
             <p className="text-xs text-muted">© {new Date().getFullYear()} Dersa Eğitim Ekosistemi. Tüm hakları saklıdır.</p>
           </div>
         </div>

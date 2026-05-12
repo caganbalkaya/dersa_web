@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+﻿import React, { useState, useEffect, useContext, useRef } from 'react';
 import { API_URL } from '../config';
 import { useParams, useNavigate } from 'react-router-dom';
 import PublicNavbar from '../components/PublicNavbar';
@@ -195,13 +195,13 @@ export default function LibraryWatch({ theme, toggleTheme }) {
 
   const getRankConfig = (r) => {
     switch(r) {
-      case 'Bronze': return { label: 'Bronz', icon: '/src/assets/bronze.png', max: 300, color: '#b45309', bg: '#fef3c7' };
-      case 'Silver': return { label: 'Gümüş', icon: '/src/assets/silver.png', max: 600, color: '#64748b', bg: '#f1f5f9' };
-      case 'Gold': return { label: 'Altın', icon: '/src/assets/gold.png', max: 1000, color: '#d97706', bg: '#fef3c7' };
-      case 'Platinum': return { label: 'Platin', icon: '/src/assets/platinum.png', max: 1500, color: '#0ea5e9', bg: '#e0f2fe' };
-      case 'Diamond': return { label: 'Elmas', icon: '/src/assets/diamond.png', max: 2500, color: '#6366f1', bg: '#e0e7ff' };
-      case 'Master': return { label: 'Usta', icon: '/src/assets/master.png', max: 5000, color: '#be185d', bg: '#fce7f3' };
-      default: return { label: 'Bronz', icon: '/src/assets/bronze.png', max: 300, color: '#b45309', bg: '#fef3c7' };
+      case 'Bronze': return { label: 'Bronz', icon: '/bronze.png', max: 300, color: '#b45309', bg: '#fef3c7' };
+      case 'Silver': return { label: 'Gümüş', icon: '/silver.png', max: 600, color: '#64748b', bg: '#f1f5f9' };
+      case 'Gold': return { label: 'Altın', icon: '/gold.png', max: 1000, color: '#d97706', bg: '#fef3c7' };
+      case 'Platinum': return { label: 'Platin', icon: '/platinum.png', max: 1500, color: '#0ea5e9', bg: '#e0f2fe' };
+      case 'Diamond': return { label: 'Elmas', icon: '/diamond.png', max: 2500, color: '#6366f1', bg: '#e0e7ff' };
+      case 'Master': return { label: 'Usta', icon: '/master.png', max: 5000, color: '#be185d', bg: '#fce7f3' };
+      default: return { label: 'Bronz', icon: '/bronze.png', max: 300, color: '#b45309', bg: '#fef3c7' };
     }
   };
 

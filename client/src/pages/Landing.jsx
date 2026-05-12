@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PlayCircle, ArrowRight, Zap, RefreshCw, BarChart, Layers, Search, MousePointer2, BookOpen } from 'lucide-react';
 import PublicNavbar from '../components/PublicNavbar';
@@ -309,7 +309,7 @@ export default function Landing({ theme, toggleTheme, isHovering, setIsHovering 
 
             {/* Col 1: Brand */}
             <div>
-              <img src={theme === 'dark' ? '/src/assets/whitepn.png' : '/src/assets/blackpng.png'} alt="Dersa logo" style={{ height: '32px', marginBottom: '1.5rem' }} />
+              <img src={theme === 'dark' ? '/whitepn.png' : '/blackpng.png'} alt="Dersa logo" style={{ height: '32px', marginBottom: '1.5rem' }} />
               <p className="text-subtle text-sm" style={{ lineHeight: '1.6', marginBottom: '1.5rem' }}>
                 Türkiye'nin en gelişmiş, modern, bulut ve senkronize sınıf içi eğitim ve slayt kütüphanesi.
               </p>

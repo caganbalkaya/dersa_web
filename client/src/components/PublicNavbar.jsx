@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ChevronDown, LogOut, HelpCircle, Mail, BookOpen } from 'lucide-react';
 import { AuthContext } from '../context/AuthContext';
@@ -59,7 +59,7 @@ export default function PublicNavbar({ theme, toggleTheme, isHovering, setIsHove
         {/* Logo + Nav */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '3.5rem' }}>
           <img
-            src={theme === 'dark' ? '/src/assets/whitepn.png' : '/src/assets/blackpng.png'}
+            src={theme === 'dark' ? '/whitepn.png' : '/blackpng.png'}
             alt="Dersa Platform"
             style={{ height: 48, cursor: 'pointer' }}
             onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}

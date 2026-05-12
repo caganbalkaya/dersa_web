@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Home, Compass, LayoutDashboard, PenTool, Gamepad2, Settings, FileText, PresentationIcon, Film } from 'lucide-react';
 
@@ -17,7 +17,7 @@ export default function Sidebar({ theme }) {
       {/* Logo */}
       <div className="sidebar-header" style={{ justifyContent: 'center', height: '80px' }}>
         <img
-          src={theme === 'dark' ? '/src/assets/whitepn.png' : '/src/assets/blackpng.png'}
+          src={theme === 'dark' ? '/whitepn.png' : '/blackpng.png'}
           alt="Dersa Platform"
           style={{ height: '44px', cursor: 'pointer' }}
           onClick={() => navigate('/')}

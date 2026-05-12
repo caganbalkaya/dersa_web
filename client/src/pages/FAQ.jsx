@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PublicNavbar from '../components/PublicNavbar';
 import { ChevronDown, ChevronUp, Mail } from 'lucide-react';
@@ -96,7 +96,7 @@ export default function FAQ({ theme, toggleTheme }) {
 
       <footer style={{ borderTop: '4px solid var(--fg)' }}>
         <div style={{ padding: '2.5rem 2rem', maxWidth: 1400, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <img src={theme === 'dark' ? '/src/assets/whitepn.png' : '/src/assets/blackpng.png'} alt="Dersa" style={{ height: 24, opacity: 0.5 }} />
+          <img src={theme === 'dark' ? '/whitepn.png' : '/blackpng.png'} alt="Dersa" style={{ height: 24, opacity: 0.5 }} />
           <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--fg-subtle)' }}>
             © {new Date().getFullYear()} Dersa Eğitim Ekosistemi.
           </p>
