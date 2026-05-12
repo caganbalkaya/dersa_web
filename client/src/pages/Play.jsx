@@ -216,7 +216,7 @@ export default function Play({ socket }) {
   const handleHangmanGuess = (char) => {
      if(localGameState.isFinished) return;
      const actualData = gameData?.gameData || gameData;
-     const payload = JSON.parse(actualData.payload || '{}');
+     const payload = typeof actualData.payload === 'string' ? JSON.parse(actualData.payload || '{}') : (actualData.payload || {});
      const word = payload.word?.toUpperCase();
      
      if (word.includes(char)) {
@@ -241,7 +241,7 @@ export default function Play({ socket }) {
   const handleQuizAnswer = (idx) => {
      if(selectedAnswer !== null) return;
      const actualData = gameData?.gameData || gameData;
-     const payload = JSON.parse(actualData.payload || '{}');
+     const payload = typeof actualData.payload === 'string' ? JSON.parse(actualData.payload || '{}') : (actualData.payload || {});
      const isCorrect = payload.correctIndex === idx;
      setSelectedAnswer(idx);
      setLocalGameState(s => ({ ...s, isFinished: true, feedback: isCorrect ? 'success' : 'error' }));
@@ -252,7 +252,7 @@ export default function Play({ socket }) {
      e.preventDefault();
      if(selectedAnswer !== null) return;
      const actualData = gameData?.gameData || gameData;
-     const payload = JSON.parse(actualData.payload || '{}');
+     const payload = typeof actualData.payload === 'string' ? JSON.parse(actualData.payload || '{}') : (actualData.payload || {});
      const val = e.target.answer.value.trim().toUpperCase();
      const correct = payload.answer?.trim().toUpperCase();
      const isCorrect = val === correct;
